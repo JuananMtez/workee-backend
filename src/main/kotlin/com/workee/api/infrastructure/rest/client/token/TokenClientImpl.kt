@@ -37,7 +37,7 @@ class TokenClientImpl : TokenClient {
 
         client.newCall(request).execute().use { response ->
             when (response.code) {
-                200 -> return response.body?.string() ?: ""
+                200 -> return response.body!!.string()
                 401 -> throw UnauthorizedUserException()
                 else -> throw ResourceNotAccessibleException()
             }
