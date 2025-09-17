@@ -2,6 +2,7 @@ package com.workee.api.infrastructure.rest.auth
 
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
 
 @RestController
@@ -21,12 +22,17 @@ class AuthController {
         val body = "grant_type=password&client_id=workee-client-api-rest&username=$username&password=$password&client_secret=7BNVk5x3z0TXNcb1ZyPBfio6drZ42Bei"
 
         val request = HttpEntity(body, headers)
-        val response = restTemplate.postForEntity(
-            "http://localhost:9090/realms/workee-realm-dev/protocol/openid-connect/token",
-            request,
-            String::class.java
-        )
+        try {
+            val response = restTemplate.postForEntity(
+                "http://localhost:9090/realms/workee-realm-dev/protocol/openid-connect/token",
+                request,
+                String::class.java
+            )
+            return response
 
-        return response
+        } catch (e: RestClientException) {
+            e.printStackTrace()
+        }
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }
