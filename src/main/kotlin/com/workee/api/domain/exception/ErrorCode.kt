@@ -3,5 +3,8 @@ package com.workee.api.domain.exception
 enum class ErrorCode {
     INVALID_TOKEN,
     INTERNAL_SERVER_ERROR,
-    ACCESS_DENIED
+    ACCESS_DENIED,
+    RESOURCE_NOT_ACCESSIBLE,
+    UNAUTHORIZED_USER,
+    BAD_REQUEST,
 }

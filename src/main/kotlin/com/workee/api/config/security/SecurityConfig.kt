@@ -1,6 +1,6 @@
 package com.workee.api.config.security
 
-import com.workee.api.infrastructure.rest.exception.handler.AuthEntryPointHandler
+import com.workee.api.infrastructure.rest.controller.exception.handler.AuthEntryPointHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
