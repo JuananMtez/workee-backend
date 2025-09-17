@@ -1,6 +1,4 @@
-package com.workee.api.infrastructure.rest.exception.message
-
-import java.time.LocalDateTime
+package com.workee.api.infrastructure.rest.controller.exception.message
 
 class ErrorResponse(
     val code: String,
