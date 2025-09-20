@@ -22,4 +22,4 @@ databaseChangeLog:
                     references: user(id)
                     deleteCascade: true
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".owner TO api_user;
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".member TO api_user;
