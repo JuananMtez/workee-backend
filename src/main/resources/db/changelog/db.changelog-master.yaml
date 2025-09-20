@@ -1,1 +1,7 @@
 databaseChangeLog:
+  - include:
+      file: "db/changelog/tables/01-user.yaml"
+  - include:
+      file: "db/changelog/tables/02-owner.yaml"
+  - include:
+      file: "db/changelog/tables/03-member.yaml"

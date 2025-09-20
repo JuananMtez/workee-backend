@@ -19,6 +19,8 @@ class PlatformExceptionHandler(private val mapper: ExceptionRestMapper) {
         val body = mapper.asErrorResponse(ex)
         val status = when (ex.code) {
             ErrorCode.INVALID_TOKEN -> HttpStatus.UNAUTHORIZED
+            ErrorCode.USER_NOT_FOUND -> HttpStatus.NOT_FOUND
+            ErrorCode.DATABASE_UNAVAILABLE -> HttpStatus.INTERNAL_SERVER_ERROR
             else -> {
                 HttpStatus.INTERNAL_SERVER_ERROR
             }

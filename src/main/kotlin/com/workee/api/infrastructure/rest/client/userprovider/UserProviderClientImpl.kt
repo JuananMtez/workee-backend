@@ -1,8 +1,8 @@
-package com.workee.api.infrastructure.rest.client.token
+package com.workee.api.infrastructure.rest.client.userprovider
 
 import com.workee.api.domain.exception.ResourceNotAccessibleException
 import com.workee.api.domain.exception.UnauthorizedUserException
-import com.workee.api.domain.rest.token.TokenClient
+import com.workee.api.domain.rest.userprovider.UserProviderClient
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class TokenClientImpl : TokenClient {
+class UserProviderClientImpl : UserProviderClient {
 
     @Value("\${workee.keycloak.token-url}")
     lateinit var tokenUrl: String

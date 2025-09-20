@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: juananmtez
+      changes:
+        - createTable:
+            tableName: member
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKeyName: member_id
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: member_user_fk
+                    references: user(id)
+                    deleteCascade: true
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".owner TO api_user;

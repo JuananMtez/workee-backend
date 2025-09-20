@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: juananmtez
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKeyName: user_pk
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: provider_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nickname
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_surname
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: second_surname
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: validated_email
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamptz
+                  constraints:
+                    nullable: true
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".user TO api_user;

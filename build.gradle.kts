@@ -42,6 +42,8 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.amqp:spring-rabbit-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+	testImplementation("org.mockito:mockito-inline:5.2.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -59,4 +61,10 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	
+	// Configure JVM arguments for Mockito inline mock-maker
+	jvmArgs(
+		"--add-opens", "java.base/java.lang=ALL-UNNAMED",
+		"--add-opens", "java.base/java.util=ALL-UNNAMED"
+	)
 }

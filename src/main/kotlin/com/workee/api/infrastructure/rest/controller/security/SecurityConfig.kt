@@ -1,4 +1,4 @@
-package com.workee.api.config.security
+package com.workee.api.infrastructure.rest.controller.security
 
 import com.workee.api.infrastructure.rest.controller.exception.handler.AuthEntryPointHandler
 import org.springframework.context.annotation.Bean
