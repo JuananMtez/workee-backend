@@ -2,6 +2,7 @@ package com.workee.api.infrastructure.rest.client.userprovider
 
 import com.workee.api.domain.exception.ResourceNotAccessibleException
 import com.workee.api.domain.exception.UnauthorizedUserException
+import com.workee.api.domain.model.User
 import com.workee.api.domain.rest.userprovider.UserProviderClient
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -42,5 +43,9 @@ class UserProviderClientImpl : UserProviderClient {
                 else -> throw ResourceNotAccessibleException()
             }
         }
+    }
+
+    override fun createUser(user: User): User {
+        return TODO("Provide the return value")
     }
 }
