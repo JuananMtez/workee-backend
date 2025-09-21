@@ -9,7 +9,7 @@ import java.util.UUID
 
 @Entity
 @Table(name = "user", schema = "public")
-class UserEntity(
+data class UserEntity(
 
     @Id
     val id: UUID,
@@ -17,8 +17,8 @@ class UserEntity(
     @Column(name = "provider_id", nullable = false)
     val providerId: String,
 
-    @Column(name = "nickname", nullable = false)
-    val nickname: String,
+    @Column(name = "username", nullable = false)
+    val username: String,
 
     @Column(name = "name", nullable = false)
     val name: String,

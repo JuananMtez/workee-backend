@@ -1,4 +1,4 @@
-package com.workee.api.domain.model
+package com.workee.api.domain.model.user
 
 import java.time.LocalDateTime
 import java.util.UUID
@@ -9,7 +9,7 @@ data class User(
 
     val providerId: String,
 
-    val nickname: String,
+    val username: String,
 
     val name: String,
 

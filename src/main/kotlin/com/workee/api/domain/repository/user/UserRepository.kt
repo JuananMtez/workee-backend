@@ -1,9 +1,9 @@
 package com.workee.api.domain.repository.user
 
-import com.workee.api.domain.model.User
+import com.workee.api.domain.model.user.User
 import java.util.UUID
 
-interface UserSqlService {
+interface UserRepository {
 
     fun findUserById(id: UUID): User
 

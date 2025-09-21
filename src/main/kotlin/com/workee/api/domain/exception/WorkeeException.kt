@@ -11,3 +11,6 @@ class ResourceNotAccessibleException : WorkeeException(ErrorCode.RESOURCE_NOT_AC
 class UnauthorizedUserException : WorkeeException(ErrorCode.UNAUTHORIZED_USER, "Unauthorized user")
 class UserNotFoundException : WorkeeException(ErrorCode.USER_NOT_FOUND, "User not found")
 class DatabaseUnavailableException : WorkeeException(ErrorCode.DATABASE_UNAVAILABLE, "Database unavailable")
+class KeycloakErrorException : WorkeeException(ErrorCode.KEYCLOAK_ERROR, "Keycloak error")
+class UsernameOrEmailAlreadyExistsException : WorkeeException(ErrorCode.USERNAME_OR_EMAIL_ALREADY_EXISTS, "Username or email already exists")
+

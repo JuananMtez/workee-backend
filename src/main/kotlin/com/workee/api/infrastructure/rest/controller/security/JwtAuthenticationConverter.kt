@@ -18,7 +18,7 @@ class JwtAuthenticationConverter: Converter<Jwt, AbstractAuthenticationToken> {
     private val jwtGrantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
 
     @Value("\${jwt.auth.converter.principle-attribute}")
-    private lateinit var principleAttribute: String
+    private  lateinit var principleAttribute: String
 
     @Value("\${jwt.auth.converter.client-id}")
     private lateinit var clientId: String

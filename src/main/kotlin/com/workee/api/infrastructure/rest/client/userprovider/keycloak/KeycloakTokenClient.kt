@@ -1,31 +1,31 @@
-package com.workee.api.infrastructure.rest.client.userprovider
+package com.workee.api.infrastructure.rest.client.userprovider.keycloak
 
 import com.workee.api.domain.exception.ResourceNotAccessibleException
 import com.workee.api.domain.exception.UnauthorizedUserException
-import com.workee.api.domain.model.User
-import com.workee.api.domain.rest.userprovider.UserProviderClient
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
-class UserProviderClientImpl : UserProviderClient {
+@Component
+class KeycloakTokenClient {
 
     @Value("\${workee.keycloak.token-url}")
-    lateinit var tokenUrl: String
+    private lateinit var tokenUrl: String
 
     @Value("\${workee.keycloak.client-secret}")
-    lateinit var clientSecret: String
+    private lateinit var clientSecret: String
 
     @Value("\${workee.keycloak.client-id}")
-    lateinit var clientId: String
+    private lateinit var clientId: String
+
+
 
     private val client: OkHttpClient = OkHttpClient()
 
-    override fun getToken(username: String, password: String): String {
+    fun getToken(username: String, password: String): String {
         val mediaType = "application/x-www-form-urlencoded".toMediaType()
         val bodyString =
             "grant_type=password&client_id=$clientId&username=$username&password=$password&client_secret=$clientSecret"
@@ -43,9 +43,5 @@ class UserProviderClientImpl : UserProviderClient {
                 else -> throw ResourceNotAccessibleException()
             }
         }
-    }
-
-    override fun createUser(user: User): User {
-        return TODO("Provide the return value")
     }
 }

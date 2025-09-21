@@ -36,6 +36,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     kapt("org.mapstruct:mapstruct-processor:1.6.3")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+	implementation("org.keycloak:keycloak-admin-client:26.0.6")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -21,5 +21,15 @@ databaseChangeLog:
                     foreignKeyName: manager_user_fk
                     references: user(id)
                     deleteCascade: true
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamptz
+                  constraints:
+                    nullable: true
         - sql:
             sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".manager TO api_user;
