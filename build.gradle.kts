@@ -34,6 +34,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.mapstruct:mapstruct:1.6.3")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+	implementation("com.sun.mail:jakarta.mail:2.0.2")
     kapt("org.mapstruct:mapstruct-processor:1.6.3")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 	implementation("org.keycloak:keycloak-admin-client:26.0.6")

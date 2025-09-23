@@ -27,17 +27,7 @@ class PlatformExceptionHandler(private val mapper: ExceptionRestMapper) {
         logger.warn("$LOG_HEADER WorkeeException: ${ex.message}")
 
         val body = mapper.asErrorResponse(ex)
-        val status = when (ex.code) {
-            ErrorCode.INVALID_TOKEN -> HttpStatus.UNAUTHORIZED
-            ErrorCode.USER_NOT_FOUND -> HttpStatus.NOT_FOUND
-            ErrorCode.DATABASE_UNAVAILABLE -> HttpStatus.INTERNAL_SERVER_ERROR
-            ErrorCode.KEYCLOAK_ERROR -> HttpStatus.INTERNAL_SERVER_ERROR
-            ErrorCode.USERNAME_OR_EMAIL_ALREADY_EXISTS -> HttpStatus.CONFLICT
-            else -> {
-                HttpStatus.INTERNAL_SERVER_ERROR
-            }
-        }
-        return ResponseEntity(body, status)
+        return ResponseEntity(body, ex.status)
     }
 
     @ExceptionHandler(AuthorizationDeniedException::class)
@@ -50,7 +40,12 @@ class PlatformExceptionHandler(private val mapper: ExceptionRestMapper) {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handle(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         logger.warn("$LOG_HEADER MethodArgumentNotValidException: ${ex.message}")
-        val body = mapper.asErrorResponse(ErrorCode.BAD_REQUEST, "Bad Request")
+
+        val errors = ex.bindingResult.fieldErrors.map { fieldError ->
+            "${fieldError.field}: ${fieldError.defaultMessage}"
+        }
+
+        val body = mapper.asErrorResponse(ErrorCode.BAD_REQUEST, errors.joinToString(", "))
         return ResponseEntity(body, HttpStatus.BAD_REQUEST)
     }
 

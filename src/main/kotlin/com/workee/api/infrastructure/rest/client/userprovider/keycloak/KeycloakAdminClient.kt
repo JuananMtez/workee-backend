@@ -1,6 +1,7 @@
 package com.workee.api.infrastructure.rest.client.userprovider.keycloak
 
 import com.workee.api.domain.exception.KeycloakErrorException
+import com.workee.api.domain.model.user.RoleEnum
 import com.workee.api.infrastructure.rest.client.userprovider.keycloak.message.request.KeycloakCreateUserRequest
 import com.workee.api.infrastructure.rest.client.userprovider.keycloak.message.response.KeycloakCreateUserResponse
 import org.keycloak.OAuth2Constants
@@ -67,10 +68,6 @@ class KeycloakAdminClient(
 
                 usersResource.get(userId).resetPassword(credentialRepresentation)
 
-                val roleRepresentations =
-                    listOf(realmResource.roles().get(keycloakCreateUserRequest.role.value).toRepresentation())
-
-                usersResource.get(userId).roles().realmLevel().add(roleRepresentations)
                 return KeycloakCreateUserResponse(userId)
             }
 
@@ -81,5 +78,35 @@ class KeycloakAdminClient(
 
         throw KeycloakErrorException()
     }
+
+    fun addRoleToUser(userProviderId: String, role: RoleEnum) {
+        try {
+            val realmResource = getRealmResource()
+            val usersResource = realmResource.users()
+
+            val roleRepresentations =
+                listOf(realmResource.roles().get(role.value).toRepresentation())
+
+            usersResource.get(userProviderId).roles().realmLevel().add(roleRepresentations)
+        } catch (ex: Exception) {
+            logger.error("$LOG_HEADER - Error while adding role to user with id ${userProviderId}. Error: ${ex.message}")
+            throw KeycloakErrorException()
+        }
+    }
+
+    fun updateEmailVerified(userProviderId: String) {
+        try {
+            val realmResource = getRealmResource()
+            val usersResource = realmResource.users()
+            val userRepresentation = usersResource.get(userProviderId).toRepresentation()
+            userRepresentation.isEmailVerified = true
+            usersResource.get(userProviderId).update(userRepresentation)
+
+        } catch (ex: Exception) {
+            logger.error("$LOG_HEADER - Error while verifying email update to user with id ${userProviderId}. Error: ${ex.message}")
+            throw KeycloakErrorException()
+        }
+    }
+
 
 }

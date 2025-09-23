@@ -22,6 +22,17 @@ databaseChangeLog:
                     references: user(id)
                     deleteCascade: true
               - column:
+                  name: tax_identification_number
+                  type: varchar
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: billing_address
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
                   name: created_at
                   type: timestamptz
                   constraints:

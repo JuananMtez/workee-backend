@@ -2,9 +2,18 @@ package com.workee.api.domain.service.user
 
 import com.workee.api.domain.model.user.CreateUserDTO
 import com.workee.api.domain.model.user.User
-import com.workee.api.domain.model.userprovider.UserProviderDTO
+import java.util.UUID
 
 interface UserService {
 
-    fun createUser(createUserDTO: CreateUserDTO, userProviderDTO: UserProviderDTO): User
+    fun getToken(username: String, password: String): String
+
+    fun createUser(createUserDTO: CreateUserDTO): User
+
+    fun existsByUsernameOrEmail(username: String, email: String): Boolean
+
+    fun findByUsername(username: String): User
+
+    fun verifyEmail(code: UUID): User
+
 }

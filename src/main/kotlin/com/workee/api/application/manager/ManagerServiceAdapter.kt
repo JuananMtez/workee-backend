@@ -1,12 +1,14 @@
 package com.workee.api.application.manager
 
-import com.workee.api.domain.exception.UsernameOrEmailAlreadyExistsException
+import com.workee.api.domain.exception.ManagerAlreadyExistsException
 import com.workee.api.domain.model.manager.CreateManagerDTO
 import com.workee.api.domain.model.manager.Manager
+import com.workee.api.domain.model.user.RoleEnum
 import com.workee.api.domain.repository.manager.ManagerRepository
+import com.workee.api.domain.restclient.userprovider.UserProviderClient
 import com.workee.api.domain.service.manager.ManagerService
 import com.workee.api.domain.service.user.UserService
-import com.workee.api.domain.service.userprovider.UserProviderService
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.UUID
@@ -14,28 +16,29 @@ import java.util.UUID
 @Service
 class ManagerServiceAdapter(
     private val managerRepository: ManagerRepository,
-    private val userProviderService: UserProviderService,
     private val userService: UserService,
-    private val managerServiceMapper: ManagerServiceMapper
+    private val userProviderClient: UserProviderClient
 ) : ManagerService {
-
     override fun createManager(createManagerDTO: CreateManagerDTO): Manager {
 
-        if (managerRepository.existsByUsernameOrEmail(createManagerDTO.email, createManagerDTO.username)) {
-            throw UsernameOrEmailAlreadyExistsException()
+        val authentication = SecurityContextHolder.getContext().authentication
+        val tokenUsername = authentication.name
+
+        if (managerRepository.existsByUsername(tokenUsername)) {
+            throw ManagerAlreadyExistsException()
         }
 
-        val userProviderDTO = userProviderService.createManager(createManagerDTO)
+        val user = userService.findByUsername(tokenUsername)
 
-        val createUserDTO = managerServiceMapper.asCreateUserDTO(createManagerDTO)
-
-        val user = userService.createUser(createUserDTO, userProviderDTO)
+        userProviderClient.addRoleToUser(user.providerId, RoleEnum.MANAGER)
 
         var manager = Manager(
             id = UUID.randomUUID(),
             user = user,
+            taxIdentificationNumber = createManagerDTO.taxIdentificationNumber,
+            billingAddress = createManagerDTO.billingAddress,
             createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            updatedAt = LocalDateTime.now(),
         )
 
         manager = managerRepository.save(manager)

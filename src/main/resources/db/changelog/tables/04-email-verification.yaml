@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: juananmtez
+      changes:
+        - createTable:
+            tableName: email_verification
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKeyName: email_verification_pk
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: email_verification_user_fk
+                    references: user(id)
+                    deleteCascade: true
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON "public".email_verification TO api_user;

@@ -18,11 +18,13 @@ databaseChangeLog:
                   type: varchar
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: username
                   type: varchar
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: name
                   type: varchar(50)
@@ -43,6 +45,7 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: validated_email
                   type: boolean

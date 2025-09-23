@@ -20,6 +20,12 @@ data class ManagerEntity(
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     val user: UserEntity,
 
+    @Column(name = "tax_identification_number", nullable = false)
+    val taxIdentificationNumber: String,
+
+    @Column(name = "billing_address", nullable = true)
+    val billingAddress: String,
+
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime,
 

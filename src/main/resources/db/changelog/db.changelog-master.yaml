@@ -3,5 +3,7 @@ databaseChangeLog:
       file: "db/changelog/tables/01-user.yaml"
   - include:
       file: "db/changelog/tables/02-manager.yaml"
+  #- include:
+  #    file: "db/changelog/tables/03-member.yaml"
   - include:
-      file: "db/changelog/tables/03-member.yaml"
+      file: "db/changelog/tables/04-email-verification.yaml"

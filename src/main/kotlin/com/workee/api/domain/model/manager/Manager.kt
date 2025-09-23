@@ -7,6 +7,8 @@ import java.util.UUID
 data class Manager (
     val id: UUID,
     val user: User,
+    val taxIdentificationNumber: String,
+    val billingAddress: String?,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 )

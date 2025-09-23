@@ -1,4 +1,4 @@
-package com.workee.api.infrastructure.rest.controller.security
+package com.workee.api.infrastructure.rest.controller.config.security
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.convert.converter.Converter

@@ -1,33 +1,23 @@
 package com.workee.api.infrastructure.rest.controller.auth
 
-import com.workee.api.domain.service.userprovider.UserProviderService
+import com.workee.api.domain.service.user.UserService
+import com.workee.api.infrastructure.rest.controller.auth.request.AuthRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-
 
 @RestController
 @RequestMapping("/auth")
 @Validated
-class AuthController(private val tokensService: UserProviderService) {
+class AuthController(private val userService: UserService) {
 
-    @PostMapping("/manager")
-    fun loginManager(
-        @RequestParam username: String,
-        @RequestParam password: String
+    @PostMapping
+    fun login(
+        @Validated @RequestBody authRequest: AuthRequest
     ): ResponseEntity<String> {
-        return ResponseEntity.ok(tokensService.getToken(username, password))
+        return ResponseEntity.ok(userService.getToken(authRequest.username, authRequest.password))
     }
-
-    @PostMapping("/member")
-    fun loginMember(
-        @RequestParam username: String,
-        @RequestParam password: String
-    ): ResponseEntity<String> {
-        return ResponseEntity.ok(tokensService.getToken(username, password))
-    }
-
 }

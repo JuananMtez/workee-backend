@@ -9,6 +9,8 @@ interface ManagerRepository {
     
     fun existsByUsernameOrEmail(email: String, username: String): Boolean
 
+    fun existsByUsername(username: String): Boolean
+
     fun save(manager: Manager): Manager
 
     fun update(manager: Manager): Manager

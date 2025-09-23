@@ -1,9 +1,9 @@
-package com.workee.api.infrastructure.rest.controller.security
+package com.workee.api.infrastructure.rest.controller.config.security
 
 import com.workee.api.infrastructure.rest.controller.exception.handler.AuthEntryPointHandler
-import jakarta.ws.rs.HttpMethod
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -23,18 +23,15 @@ class SecurityConfig(
         http
             .csrf { it.disable() }
 
-
             .authorizeHttpRequests { auth ->
 
-                auth.requestMatchers(
-                    HttpMethod.POST, "/manager"
-                ).permitAll()
-
-                auth.requestMatchers(
-                    "/auth/login", "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**"
-                ).permitAll()
+                auth
+                    .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/user/verify-email").permitAll()
+                    .requestMatchers("/auth").permitAll()
+                    .requestMatchers("/swagger-ui.html").permitAll()
+                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/v3/api-docs/**").permitAll()
                 auth.anyRequest().authenticated()
             }
             .oauth2ResourceServer { oauth2 ->

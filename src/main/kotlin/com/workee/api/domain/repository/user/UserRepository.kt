@@ -5,11 +5,17 @@ import java.util.UUID
 
 interface UserRepository {
 
-    fun findUserById(id: UUID): User
+    fun findById(id: UUID): User
 
-    fun saveUser(user: User): User
+    fun findByUsername(username: String): User
 
-    fun updateUser(user: User): User
+    fun findByEmail(email: String): User
 
-    fun deleteUserById(id: UUID)
+    fun save(user: User): User
+
+    fun update(user: User): User
+
+    fun deleteById(id: UUID)
+
+    fun existsByUsernameOrEmail(username: String, email: String): Boolean
 }

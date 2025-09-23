@@ -26,6 +26,8 @@ class PostgresManagerRepositoryAdapter(
         try {
             val manager = jpaManagerRepository.findById(id).orElseThrow { UserNotFoundException() }
             return managerRepositoryMapper.asManager(manager)
+        } catch (ex: UserNotFoundException) {
+            throw UserNotFoundException()
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding manager by id with id: $id. Error: $ex")
             throw DatabaseUnavailableException()
@@ -37,6 +39,15 @@ class PostgresManagerRepositoryAdapter(
             return jpaManagerRepository.existsByUserEmail(email) || jpaManagerRepository.existsByUserUsername(username)
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error checking if exists by email: $email or username: $username. Error: $ex")
+            throw DatabaseUnavailableException()
+        }
+    }
+
+    override fun existsByUsername(username: String): Boolean {
+        try {
+            return jpaManagerRepository.existsByUserUsername(username)
+        } catch (ex: Exception) {
+            logger.error("$LOG_HEADER -- Error checking if exists by username: $username. Error: $ex")
             throw DatabaseUnavailableException()
         }
     }
