@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/api/v1/manager")
 class ManagerController(
     private val managerService: ManagerService,
     private val managerControllerMapper: ManagerControllerMapper

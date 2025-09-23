@@ -1,5 +1,6 @@
 package com.workee.api.infrastructure.rest.controller.user.message.request
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
@@ -13,8 +14,10 @@ data class CreateUserRequest(
     val name: String,
 
     @field:NotBlank(message = "First surname cannot be blank")
+    @field:JsonProperty(value = "first_surname")
     val firstSurname: String,
 
+    @field:JsonProperty(value = "second_surname")
     val secondSurname: String? = null,
 
     @field:Email(message = "Invalid email format")

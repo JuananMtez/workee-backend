@@ -9,6 +9,7 @@ import com.workee.api.domain.restclient.userprovider.UserProviderClient
 import com.workee.api.domain.service.manager.ManagerService
 import com.workee.api.domain.service.user.UserService
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.UUID
@@ -22,13 +23,14 @@ class ManagerServiceAdapter(
     override fun createManager(createManagerDTO: CreateManagerDTO): Manager {
 
         val authentication = SecurityContextHolder.getContext().authentication
-        val tokenUsername = authentication.name
+        val principal = authentication.principal as Jwt
+        val providerId = principal.claims["sub"] as String
 
-        if (managerRepository.existsByUsername(tokenUsername)) {
+        if (managerRepository.existsByProviderId(providerId)) {
             throw ManagerAlreadyExistsException()
         }
 
-        val user = userService.findByUsername(tokenUsername)
+        val user = userService.findByProviderId(providerId)
 
         userProviderClient.addRoleToUser(user.providerId, RoleEnum.MANAGER)
 

@@ -43,11 +43,11 @@ class PostgresManagerRepositoryAdapter(
         }
     }
 
-    override fun existsByUsername(username: String): Boolean {
+    override fun existsByProviderId(providerId: String): Boolean {
         try {
-            return jpaManagerRepository.existsByUserUsername(username)
+            return jpaManagerRepository.existsByUserProviderId(providerId)
         } catch (ex: Exception) {
-            logger.error("$LOG_HEADER -- Error checking if exists by username: $username. Error: $ex")
+            logger.error("$LOG_HEADER -- Error checking if exists by providerId: $providerId. Error: $ex")
             throw DatabaseUnavailableException()
         }
     }

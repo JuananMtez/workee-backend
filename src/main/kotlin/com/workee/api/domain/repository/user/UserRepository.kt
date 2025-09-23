@@ -11,6 +11,8 @@ interface UserRepository {
 
     fun findByEmail(email: String): User
 
+    fun findByProviderId(providerId: String): User
+
     fun save(user: User): User
 
     fun update(user: User): User

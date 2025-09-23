@@ -1,7 +1,6 @@
 package com.workee.api.application.token
 
 import com.workee.api.domain.exception.EmailNotVerifiedException
-import com.workee.api.domain.exception.RefreshTokenNotFoundException
 import com.workee.api.domain.exception.UserNotFoundException
 import com.workee.api.domain.model.user.AuthTokenDTO
 import com.workee.api.domain.model.user.User
@@ -29,11 +28,7 @@ class AuthTokenAdapter(
         throw EmailNotVerifiedException()
     }
 
-    override fun refreshToken(refreshToken: String?): AuthTokenDTO {
-        if (refreshToken == null) {
-            throw RefreshTokenNotFoundException()
-        }
-
+    override fun refreshToken(refreshToken: String): AuthTokenDTO {
         return userProviderClient.refreshToken(refreshToken)
 
     }

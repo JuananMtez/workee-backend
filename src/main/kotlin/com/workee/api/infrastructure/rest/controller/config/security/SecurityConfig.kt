@@ -26,10 +26,10 @@ class SecurityConfig(
             .authorizeHttpRequests { auth ->
 
                 auth
-                    .requestMatchers(HttpMethod.POST, "/user").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/user/verify-email").permitAll()
-                    .requestMatchers("/auth/token").permitAll()
-                    .requestMatchers("/auth/refresh-token").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/user/verify-email").permitAll()
+                    .requestMatchers("/api/v1//auth/token").permitAll()
+                    .requestMatchers("api/v1/auth/refresh").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()

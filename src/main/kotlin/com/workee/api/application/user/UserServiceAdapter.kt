@@ -66,6 +66,10 @@ class UserServiceAdapter(
         return userRepository.findByUsername(username)
     }
 
+    override fun findByProviderId(providerId: String): User {
+        return userRepository.findByProviderId(providerId)
+    }
+
     override fun verifyEmail(code: UUID): User {
         
         val emailVerification = emailVerificationRepository.findById(code)

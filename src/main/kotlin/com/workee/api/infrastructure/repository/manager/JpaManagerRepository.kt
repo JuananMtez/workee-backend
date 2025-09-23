@@ -7,5 +7,6 @@ interface JpaManagerRepository : JpaRepository<ManagerEntity, UUID> {
 
     fun existsByUserEmail(email: String): Boolean
     fun existsByUserUsername(username: String): Boolean
+    fun existsByUserProviderId(providerId: String): Boolean
 
 }

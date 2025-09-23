@@ -12,6 +12,8 @@ interface UserService {
 
     fun findByUsername(username: String): User
 
+    fun findByProviderId(providerId: String): User
+
     fun verifyEmail(code: UUID): User
 
 }

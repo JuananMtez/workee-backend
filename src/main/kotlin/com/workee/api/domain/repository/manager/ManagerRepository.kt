@@ -9,7 +9,7 @@ interface ManagerRepository {
     
     fun existsByUsernameOrEmail(email: String, username: String): Boolean
 
-    fun existsByUsername(username: String): Boolean
+    fun existsByProviderId(providerId: String): Boolean
 
     fun save(manager: Manager): Manager
 

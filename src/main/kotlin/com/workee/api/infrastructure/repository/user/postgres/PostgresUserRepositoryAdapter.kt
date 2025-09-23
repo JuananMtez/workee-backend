@@ -40,7 +40,19 @@ class PostgresUserRepositoryAdapter(
         } catch (ex: UserNotFoundException) {
             throw ex
         } catch (ex: Exception) {
-            logger.error("$LOG_HEADER -- Error finding user by username with email: $email. Error: $ex")
+            logger.error("$LOG_HEADER -- Error finding user by email with email: $email. Error: $ex")
+            throw DatabaseUnavailableException()
+        }
+    }
+
+    override fun findByProviderId(providerId: String): User {
+        try {
+            val user = jpaUserRepository.findByProviderId(providerId).orElseThrow { UserNotFoundException() }
+            return userRepositoryMapper.asUser(user)
+        } catch (ex: UserNotFoundException) {
+            throw ex
+        } catch (ex: Exception) {
+            logger.error("$LOG_HEADER -- Error finding user by provider id with provider id: $providerId. Error: $ex")
             throw DatabaseUnavailableException()
         }
     }
