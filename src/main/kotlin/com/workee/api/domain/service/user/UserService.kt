@@ -6,8 +6,6 @@ import java.util.UUID
 
 interface UserService {
 
-    fun getToken(username: String, password: String): String
-
     fun createUser(createUserDTO: CreateUserDTO): User
 
     fun existsByUsernameOrEmail(username: String, email: String): Boolean

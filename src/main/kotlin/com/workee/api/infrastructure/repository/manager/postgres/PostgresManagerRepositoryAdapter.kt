@@ -27,7 +27,7 @@ class PostgresManagerRepositoryAdapter(
             val manager = jpaManagerRepository.findById(id).orElseThrow { UserNotFoundException() }
             return managerRepositoryMapper.asManager(manager)
         } catch (ex: UserNotFoundException) {
-            throw UserNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding manager by id with id: $id. Error: $ex")
             throw DatabaseUnavailableException()

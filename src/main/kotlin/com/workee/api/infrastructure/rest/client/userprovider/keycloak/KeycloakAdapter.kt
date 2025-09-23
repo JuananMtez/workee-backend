@@ -1,5 +1,6 @@
 package com.workee.api.infrastructure.rest.client.userprovider.keycloak
 
+import com.workee.api.domain.model.user.AuthTokenDTO
 import com.workee.api.domain.model.user.CreateUserDTO
 import com.workee.api.domain.model.user.RoleEnum
 import com.workee.api.domain.model.userprovider.UserProviderDTO
@@ -14,8 +15,16 @@ class KeycloakAdapter(
     private val keycloakMapper: KeycloakMapper
 ) : UserProviderClient {
 
-    override fun getToken(username: String, password: String): String {
-        return keycloakTokenClient.getToken(username, password)
+    override fun getToken(username: String, password: String): AuthTokenDTO {
+        return keycloakMapper.asAuthTokenDTO(
+            keycloakTokenClient.getToken(username, password)
+        )
+    }
+
+    override fun refreshToken(refreshToken: String): AuthTokenDTO {
+        return keycloakMapper.asAuthTokenDTO(
+            keycloakTokenClient.refreshToken(refreshToken)
+        )
     }
 
     override fun createUser(createUserDTO: CreateUserDTO): UserProviderDTO {

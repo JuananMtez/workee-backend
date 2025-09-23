@@ -28,7 +28,8 @@ class SecurityConfig(
                 auth
                     .requestMatchers(HttpMethod.POST, "/user").permitAll()
                     .requestMatchers(HttpMethod.GET, "/user/verify-email").permitAll()
-                    .requestMatchers("/auth").permitAll()
+                    .requestMatchers("/auth/token").permitAll()
+                    .requestMatchers("/auth/refresh-token").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()

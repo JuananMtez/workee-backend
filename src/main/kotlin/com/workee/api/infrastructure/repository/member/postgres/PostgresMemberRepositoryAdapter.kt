@@ -27,7 +27,7 @@ class PostgresMemberRepositoryAdapter(
             val member = jpaMemberRepository.findById(id).orElseThrow { UserNotFoundException() }
             return memberRepositoryMapper.asMember(member)
         } catch (ex: UserNotFoundException) {
-            throw UserNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding member by id with id: $id. Error: $ex")
             throw DatabaseUnavailableException()

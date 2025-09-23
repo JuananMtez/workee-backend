@@ -84,3 +84,10 @@ class EmailNotVerifiedException :
         "Email not verified",
         HttpStatus.FORBIDDEN
     )
+
+class RefreshTokenNotFoundException :
+    WorkeeException(
+        ErrorCode.REFRESH_TOKEN_NOT_FOUND,
+        "Refresh token not found",
+        HttpStatus.UNAUTHORIZED
+    )

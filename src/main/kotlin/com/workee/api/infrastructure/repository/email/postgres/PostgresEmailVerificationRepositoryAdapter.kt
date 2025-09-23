@@ -28,7 +28,7 @@ class PostgresEmailVerificationRepositoryAdapter(
                 jpaEmailVerificationRepository.findById(id).orElseThrow { EmailVerificationNotFoundException() }
             return emailVerificationRepositoryMapper.asEmailVerification(emailVerification)
         } catch (ex: EmailVerificationNotFoundException) {
-            throw EmailVerificationNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding email verification by id with id: $id. Error: $ex")
             throw DatabaseUnavailableException()

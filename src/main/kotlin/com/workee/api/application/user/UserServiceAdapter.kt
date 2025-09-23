@@ -1,8 +1,6 @@
 package com.workee.api.application.user
 
 import com.workee.api.domain.email.EmailSender
-import com.workee.api.domain.exception.EmailNotVerifiedException
-import com.workee.api.domain.exception.UserNotFoundException
 import com.workee.api.domain.exception.UsernameOrEmailAlreadyExistsException
 import com.workee.api.domain.model.email.EmailVerification
 import com.workee.api.domain.model.user.CreateUserDTO
@@ -22,19 +20,6 @@ class UserServiceAdapter(
     private val emailSender: EmailSender,
     private val emailVerificationRepository: EmailVerificationRepository
 ) : UserService {
-
-    override fun getToken(username: String, password: String): String {
-        val user: User = try {
-            userRepository.findByUsername(username)
-        } catch (ex: UserNotFoundException) {
-            userRepository.findByEmail(username)
-        }
-
-        if (user.validatedEmail) {
-            return userProviderClient.getToken(username, password)
-        }
-        throw EmailNotVerifiedException()
-    }
 
     override fun createUser(createUserDTO: CreateUserDTO): User {
 

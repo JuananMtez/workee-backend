@@ -26,7 +26,7 @@ class PostgresUserRepositoryAdapter(
             val user = jpaUserRepository.findById(id).orElseThrow { UserNotFoundException() }
             return userRepositoryMapper.asUser(user)
         } catch (ex: UserNotFoundException) {
-            throw UserNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding user by id with id: $id. Error: $ex")
             throw DatabaseUnavailableException()
@@ -38,7 +38,7 @@ class PostgresUserRepositoryAdapter(
             val user = jpaUserRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
             return userRepositoryMapper.asUser(user)
         } catch (ex: UserNotFoundException) {
-            throw UserNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding user by username with email: $email. Error: $ex")
             throw DatabaseUnavailableException()
@@ -50,7 +50,7 @@ class PostgresUserRepositoryAdapter(
             val user = jpaUserRepository.findByUsername(username).orElseThrow { UserNotFoundException() }
             return userRepositoryMapper.asUser(user)
         } catch (ex: UserNotFoundException) {
-            throw UserNotFoundException()
+            throw ex
         } catch (ex: Exception) {
             logger.error("$LOG_HEADER -- Error finding user by username with username: $username. Error: $ex")
             throw DatabaseUnavailableException()
@@ -94,6 +94,4 @@ class PostgresUserRepositoryAdapter(
             throw DatabaseUnavailableException()
         }
     }
-
-
 }
